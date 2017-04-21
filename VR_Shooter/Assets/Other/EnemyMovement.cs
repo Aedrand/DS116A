@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour {
     public float health;
     public float decomposeTime;
     public float attackInterval;
+    public float rotationSpeed;
 
     private GameObject target;
     private NavMeshAgent agent;
@@ -32,11 +33,7 @@ public class EnemyMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-        Vector3 direction = (target.transform.position = transform.position).normalized;
-        Quaternion look
-
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, 
             lookRotation, Time.deltaTime * rotationSpeed);
@@ -67,6 +64,9 @@ public class EnemyMovement : MonoBehaviour {
         if(other.CompareTag("Player"))
         {
             attacking = false;
+            anim.SetBool("idle0ToAttack1", false);
+            anim.SetBool("idle0ToRun", true);
+            anim.SetBool("runToIdle0", false);
         }
     }
 
